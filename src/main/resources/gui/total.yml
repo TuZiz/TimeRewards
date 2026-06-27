@@ -1,0 +1,44 @@
+Title: "&#FF6B6B&l❖ &8| &f累计在线奖励"
+
+GuiPlain:
+  - "    S    "
+  - " `至尊累计奖励` "
+  - "         "
+  - "         "
+  - "         "
+  - "    G    "
+
+GuiKey:
+  "S":
+    Material: "PLAYER_HEAD"
+    Name: "&#FFD700&l✦ &f我的在线统计 &l✦"
+    Lore:
+      - ""
+      - " &8 ├─ &7今日 &8» &f&l{today_time}"
+      - " &8 ├─ &7本周 &8» &f&l{week_time}"
+      - " &8 ├─ &7本月 &8» &f&l{month_time}"
+      - " &8 ├─ &7本年 &8» &f&l{year_time}"
+      - " &8 └─ &7累计 &8» &f&l{total_time}"
+      - ""
+    IconFunction: "stats"
+
+  "R":
+    Material: "GOLD_BLOCK"
+    Name: "{reward_display}"
+    Lore:
+      - ""
+      - " &8 ├─ &7需求时间 &8» &f{required_minutes} &7分钟"
+      - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+      - " &8 ├─ &7当前状态 &8» {status}"
+      - " &8 ├─ &b包含奖励 &8»"
+      - "{reward_lines}"
+      - " &8 └─ &e{hint}"
+      - ""
+    IconFunction: "reward"
+
+  "G":
+    Material: "PAPER"
+    Name: "&#00D2D3&l奖励数量 &f{reward_count}"
+    Lore:
+      - "&8 » &7只有 GuiPlain 中配置的奖励会显示"
+    IconFunction: "page"

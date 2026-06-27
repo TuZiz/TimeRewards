@@ -1,0 +1,58 @@
+Title: "&#FFD700&l❖ &8| &f每日在线奖励 &8» &7在线越久，奖励越丰厚"
+
+GuiPlain:
+  - "   S G   "
+  - " `20分钟在线奖励` `120分钟在线奖励` "
+  - " `40分钟在线奖励` `140分钟在线奖励` "
+  - " `60分钟在线奖励` `160分钟在线奖励` "
+  - " `80分钟在线奖励` `180分钟在线奖励` "
+  - " `100分钟在线奖励` `200分钟在线奖励` "
+
+GuiKey:
+  "S":
+    Material: "PLAYER_HEAD"
+    Name: "&#FFD700&l✦ &f我的在线统计 &l✦"
+    Lore:
+      - ""
+      - " &8 ├─ &7今日 &8» &f&l{today_time}"
+      - " &8 ├─ &7本周 &8» &f&l{week_time}"
+      - " &8 ├─ &7本月 &8» &f&l{month_time}"
+      - " &8 ├─ &7本年 &8» &f&l{year_time}"
+      - " &8 └─ &7累计 &8» &f&l{total_time}"
+      - ""
+    IconFunction: "stats"
+
+  "R":
+    Material: "GOLD_BLOCK"
+    Name: "{reward_display}"
+    Lore:
+      - ""
+      - " &8 ├─ &7需求时间 &8» &f{required_minutes} &7分钟"
+      - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+      - " &8 ├─ &7当前状态 &8» {status}"
+      - " &8 ├─ &b包含奖励 &8»"
+      - "{reward_lines}"
+      - " &8 └─ &e{hint}"
+      - ""
+    IconFunction: "reward"
+
+  "P":
+    Material: "ARROW"
+    Name: "&#54A0FF&l⟲ &f上一页"
+    Lore:
+      - "&8 » &7显式奖励布局不需要翻页"
+    IconFunction: "previous"
+
+  "G":
+    Material: "PAPER"
+    Name: "&#00D2D3&l第 &f{page} &8/ &f{pages} &#00D2D3&l页"
+    Lore:
+      - "&8 » &7当前 GUI 配置了 &f{reward_count} &7个奖励"
+    IconFunction: "page"
+
+  "N":
+    Material: "ARROW"
+    Name: "&#10AC84&l➤ &f下一页"
+    Lore:
+      - "&8 » &7显式奖励布局不需要翻页"
+    IconFunction: "next"

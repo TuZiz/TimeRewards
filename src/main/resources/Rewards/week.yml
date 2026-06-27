@@ -1,0 +1,8 @@
+enabled: false
+
+本周活跃奖励:
+  time: 500
+  display-rewards:
+    - "  &8 ▪ &e金币 &8x&f6"
+  commands:
+    - "money give {player} 6"

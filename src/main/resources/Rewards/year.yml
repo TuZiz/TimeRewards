@@ -1,0 +1,8 @@
+enabled: false
+
+年度忠实奖励:
+  time: 10000
+  display-rewards:
+    - "  &8 ▪ &e金币 &8x&f8"
+  commands:
+    - "money give {player} 8"

@@ -1,0 +1,189 @@
+enabled: true
+
+20分钟在线奖励:
+  time: 20
+  icon: COAL
+  icon-amount: 2
+  display-name: "&#10AC8420分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f50"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f20 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 50"
+
+40分钟在线奖励:
+  time: 40
+  icon: COAL
+  icon-amount: 4
+  display-name: "&#10AC8440分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f80"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f40 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 80"
+
+60分钟在线奖励:
+  time: 60
+  icon: IRON_INGOT
+  icon-amount: 6
+  display-name: "&#00D2D360分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f120"
+    - "  &8 ▪ &f面包 &8x&f3"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f60 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 120"
+    - "give {player} bread 3"
+
+80分钟在线奖励:
+  time: 80
+  icon: IRON_INGOT
+  icon-amount: 8
+  display-name: "&#00D2D380分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f160"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f80 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 160"
+
+100分钟在线奖励:
+  time: 100
+  icon: GOLD_INGOT
+  icon-amount: 10
+  display-name: "&#54A0FF100分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f220"
+    - "  &8 ▪ &f熟牛排 &8x&f2"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f100 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 220"
+    - "give {player} cooked_beef 2"
+
+120分钟在线奖励:
+  time: 120
+  icon: GOLD_INGOT
+  icon-amount: 12
+  display-name: "&#54A0FF120分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f280"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f120 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 280"
+
+140分钟在线奖励:
+  time: 140
+  icon: EMERALD
+  icon-amount: 14
+  display-name: "&#A29BFE140分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f350"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f140 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 350"
+
+160分钟在线奖励:
+  time: 160
+  icon: EMERALD
+  icon-amount: 16
+  display-name: "&#A29BFE160分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f430"
+    - "  &8 ▪ &f经验瓶 &8x&f4"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f160 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 430"
+    - "give {player} experience_bottle 4"
+
+180分钟在线奖励:
+  time: 180
+  icon: DIAMOND
+  icon-amount: 18
+  display-name: "&#FDCB6E180分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f520"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f180 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 520"
+
+200分钟在线奖励:
+  time: 200
+  icon: NETHER_STAR
+  icon-amount: 20
+  display-name: "&#FF9F43200分钟 &8| &f在线奖励"
+  display-rewards:
+    - "  &8 ▪ &bEMC &8x&f650"
+    - "  &8 ▪ &6金苹果 &8x&f1"
+  lore:
+    - ""
+    - " &8 ├─ &7需求时间 &8» &f200 &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
+    - " &8 ├─ &b包含奖励 &8»"
+    - "{reward_lines}"
+    - " &8 └─ &e{hint}"
+    - ""
+  commands:
+    - "uemc give {player} 650"
+    - "give {player} golden_apple 1"

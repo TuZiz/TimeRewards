@@ -1,0 +1,8 @@
+enabled: false
+
+本月勤奋奖励:
+  time: 1000
+  display-rewards:
+    - "  &8 ▪ &e金币 &8x&f7"
+  commands:
+    - "money give {player} 7"

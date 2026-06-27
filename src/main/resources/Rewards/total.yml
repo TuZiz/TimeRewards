@@ -1,0 +1,8 @@
+enabled: false
+
+至尊累计奖励:
+  time: 20000
+  display-rewards:
+    - "  &8 ▪ &e金币 &8x&f9"
+  commands:
+    - "money give {player} 9"

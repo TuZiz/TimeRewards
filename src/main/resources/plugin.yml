@@ -1,0 +1,16 @@
+name: TimeRewards
+version: '1.0-SNAPSHOT'
+main: ym.timeRewards.TimeRewards
+api-version: '1.21'
+authors: [ ymxc ]
+softdepend: [ PlaceholderAPI ]
+commands:
+  timerewards:
+    aliases: [ tr, onlinerewards ]
+    description: Open today's rewards GUI, list period rewards, or reload config.
+    usage: /<command> [open|week|month|year|total|claim|reload]
+permissions:
+  timerewards.use:
+    default: true
+  timerewards.reload:
+    default: op

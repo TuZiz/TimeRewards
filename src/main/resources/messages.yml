@@ -1,0 +1,48 @@
+gui:
+  title: "&#FFD700&l❖ &8| &f在线奖励 &8» &7{scope}"
+
+scopes:
+  today: "&#00D2D3今日"
+  week: "&#54A0FF本周"
+  month: "&#5F27CD本月"
+  year: "&#FF9F43本年"
+  total: "&#FF6B6B累计"
+
+messages:
+  no-permission: "&#FF5252✖ &8| &c你没有权限执行此操作。"
+  player-only: "&#FF5252✖ &8| &c该命令仅限玩家在游戏内使用。"
+  reload-success: "&#10AC84✔ &8| &aTimeRewards 配置已成功重载。"
+  reward-not-ready: "&#FF9F43✦ &8| &7在线时长不足，当前 &f{current} &8/ &f{required} &7分钟。"
+  reward-already-claimed: "&#FF9F43✦ &8| &7您已经领取过该奖励了。"
+  reward-claimed: "&#10AC84✔ &8| &7成功领取奖励 &8» &f{reward}"
+  reward-save-failed: "&#FF5252✖ &8| &c奖励领取状态保存失败，未发放奖励，请稍后重试或联系管理员。"
+  reward-partial-claimed: "&#FF9F43✦ &8| &7奖励已记录领取，但有 &f{failed} &7条命令执行失败，请联系管理员核对。"
+  command-usage: "&#54A0FF❖ &8| &7用法 &8» &f/tr &8(打开界面) &8| &f/tr <周期> &8(查看) &8| &f/tr claim &8(领取)"
+  command-claim-usage: "&#54A0FF❖ &8| &7用法 &8» &f/tr claim <today|week|month|year|total> <奖励ID|序号>"
+  command-unknown-scope: "&#FF5252✖ &8| &c未知的奖励周期: &f{scope}"
+  command-reward-not-found: "&#FF5252✖ &8| &c未找到该奖励: &f{target}"
+
+  command-scope-header:
+    - ""
+    - "&8&m                 &r &#FFD700&l✦ &f&l{scope}奖励 &r&#FFD700&l✦ &8&m                 "
+    - ""
+
+  command-scope-entry:
+    - " &#FFD700&l#{index} &f{reward}"
+    - " &8 ├─ &7奖励标识 &8» &f{id}"
+    - " &8 ├─ &7领取条件 &8» &f{required} &7分钟"
+    - " &8 ├─ &7当前进度 &8» &f{progress} &8/ &f{required} &7分钟"
+    - " &8 ├─ &7当前状态 &8» {status_color}{status}"
+    - " &8 ├─ &7奖励内容 &8»"
+    - "{display_reward_lines}"
+    - " &8 └─ &e{claim_tip}"
+
+  command-scope-entry-fallback:
+    - " &8 ├─ &7包含内容 &8» &f{command_count} &7条指令 &8| &f{item_count} &7项物品"
+
+  command-scope-footer:
+    - ""
+    - "&8&m                                                  "
+    - "  &7输入 &f/tr claim {scope_key} &f<序号> &7领取对应奖励"
+    - "&8&m                                                  "
+    - ""
