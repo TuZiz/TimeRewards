@@ -21,14 +21,6 @@ class ConfigManager(
         RewardScope.TOTAL to "total.yml",
     )
 
-    private val guiFiles = mapOf(
-        RewardScope.TODAY to "day.yml",
-        RewardScope.WEEK to "week.yml",
-        RewardScope.MONTH to "month.yml",
-        RewardScope.YEAR to "year.yml",
-        RewardScope.TOTAL to "total.yml",
-    )
-
     private lateinit var messages: YamlConfiguration
     private var guiConfigsByScope: Map<RewardScope, GuiConfig> = emptyMap()
     private var rewardScopeEnabledByScope: Map<RewardScope, Boolean> = emptyMap()
@@ -119,17 +111,23 @@ class ConfigManager(
     }
 
     private fun readGuiConfig(scope: RewardScope): GuiConfig {
-        val fileName = guiFiles.getValue(scope)
-        val resourcePath = "gui/$fileName"
-        val guiFile = File(plugin.dataFolder, resourcePath)
-        if (!guiFile.exists()) {
+        val fileName = rewardFiles.getValue(scope)
+        val resourcePath = "Rewards/$fileName"
+        val rewardsFile = File(plugin.dataFolder, resourcePath)
+        if (!rewardsFile.exists()) {
             runCatching { plugin.saveResource(resourcePath, false) }
                 .onFailure { exception ->
-                    plugin.logger.severe("Missing GUI resource $resourcePath and failed to restore default: ${exception.message}")
+                    plugin.logger.severe("Missing reward resource $resourcePath and failed to restore default: ${exception.message}")
                 }
         }
-        val section: ConfigurationSection? = YamlConfiguration.loadConfiguration(guiFile)
-        val sourceName = resourcePath
+        val root = YamlConfiguration.loadConfiguration(rewardsFile)
+        var sourceName = "$resourcePath:gui"
+        val section: ConfigurationSection? = root.getConfigurationSection("gui")
+            ?: root.takeIf { root.contains("GuiPlain") || root.contains("GuiKey") || root.contains("Title") }
+            ?: legacyGuiConfig(fileName)?.also {
+                sourceName = "gui/$fileName"
+                plugin.logger.warning("Legacy GUI file gui/$fileName is still being used. Move it into $resourcePath under the 'gui' section.")
+            }
         val layout = section?.getStringList("GuiPlain").orEmpty().ifEmpty {
             listOf(
                 "#########",
@@ -167,17 +165,24 @@ class ConfigManager(
         )
     }
 
+    private fun legacyGuiConfig(fileName: String): YamlConfiguration? {
+        val legacyFile = File(plugin.dataFolder, "gui/$fileName")
+        return legacyFile.takeIf { it.exists() }?.let(YamlConfiguration::loadConfiguration)
+    }
+
     private fun readRewards(scope: RewardScope, enabledScopes: MutableMap<RewardScope, Boolean>): List<RewardDefinition> {
         val fileName = rewardFiles.getValue(scope)
         val rewardsFile = File(plugin.dataFolder, "Rewards/$fileName")
-        val section = if (rewardsFile.exists()) {
-            val rewardsYaml = YamlConfiguration.loadConfiguration(rewardsFile)
-            rewardsYaml.getConfigurationSection(scope.key) ?: rewardsYaml
+        val root = if (rewardsFile.exists()) {
+            YamlConfiguration.loadConfiguration(rewardsFile)
         } else {
             plugin.logger.warning("Reward file Rewards/$fileName not found. Falling back to config.yml section '${scope.key}'.")
             plugin.config.getConfigurationSection(scope.key) ?: return emptyList()
         }
-        val enabled = section.getBoolean("enabled", scope == RewardScope.TODAY)
+        val section = root.getConfigurationSection("rewards")
+            ?: root.getConfigurationSection(scope.key)
+            ?: root
+        val enabled = root.getBoolean("enabled", section.getBoolean("enabled", scope == RewardScope.TODAY))
         enabledScopes[scope] = enabled
         if (!enabled) {
             return emptyList()
@@ -185,7 +190,9 @@ class ConfigManager(
 
         val sourceName = if (rewardsFile.exists()) "Rewards/$fileName" else "config.yml:${scope.key}"
         return section.getKeys(false).mapNotNull { rewardName ->
-            if (rewardName == "enabled") return@mapNotNull null
+            if (rewardName in setOf("enabled", "gui", "rewards", "Title", "GuiPlain", "GuiKey")) {
+                return@mapNotNull null
+            }
             val rewardSection = section.getConfigurationSection(rewardName) ?: return@mapNotNull null
             val requiredMinutes = rewardSection.getLong("time", -1L)
             if (requiredMinutes <= 0L) {

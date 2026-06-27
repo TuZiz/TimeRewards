@@ -1,169 +1,226 @@
 enabled: true
 
-20分钟在线奖励:
-  time: 20
-  icon: COAL
-  icon-amount: 2
-  display-name: "&#10AC8420分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f50"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f20分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b50 EMC"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 50"
+gui:
+  Title: "&#FFD700&l❖ &8| &f每日在线奖励 &8» &7在线越久，奖励越丰厚"
 
-40分钟在线奖励:
-  time: 40
-  icon: COAL
-  icon-amount: 4
-  display-name: "&#10AC8440分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f80"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f40分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b80 EMC"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 80"
+  GuiPlain:
+    - "   S G   "
+    - " `20分钟在线奖励` `120分钟在线奖励` "
+    - " `40分钟在线奖励` `140分钟在线奖励` "
+    - " `60分钟在线奖励` `160分钟在线奖励` "
+    - " `80分钟在线奖励` `180分钟在线奖励` "
+    - " `100分钟在线奖励` `200分钟在线奖励` "
 
-60分钟在线奖励:
-  time: 60
-  icon: IRON_INGOT
-  icon-amount: 6
-  display-name: "&#00D2D360分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f120"
-    - "  &8 ▪ &f面包 &8x&f3"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f60分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b120 EMC &7+ &f面包 x3"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 120"
-    - "give {player} bread 3"
+  GuiKey:
+    "S":
+      Material: "PLAYER_HEAD"
+      Name: "&#FFD700&l✦ &f我的在线统计 &l✦"
+      Lore:
+        - ""
+        - " &8 ├─ &7今日 &8» &f&l{today_time}"
+        - " &8 ├─ &7本周 &8» &f&l{week_time}"
+        - " &8 ├─ &7本月 &8» &f&l{month_time}"
+        - " &8 ├─ &7本年 &8» &f&l{year_time}"
+        - " &8 └─ &7累计 &8» &f&l{total_time}"
+        - ""
+      IconFunction: "stats"
 
-80分钟在线奖励:
-  time: 80
-  icon: IRON_INGOT
-  icon-amount: 8
-  display-name: "&#00D2D380分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f160"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f80分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b160 EMC"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 160"
+    "R":
+      Material: "GOLD_BLOCK"
+      Name: "{reward_display}"
+      Lore:
+        - ""
+        - " &8▪ &7请在 Rewards 配置里自定义该奖励的 lore"
+        - " &e点击尝试领取"
+        - ""
+      IconFunction: "reward"
 
-100分钟在线奖励:
-  time: 100
-  icon: GOLD_INGOT
-  icon-amount: 10
-  display-name: "&#54A0FF100分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f220"
-    - "  &8 ▪ &f熟牛排 &8x&f2"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f100分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b220 EMC &7+ &f熟牛排 x2"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 220"
-    - "give {player} cooked_beef 2"
+    "P":
+      Material: "ARROW"
+      Name: "&#54A0FF&l⟲ &f上一页"
+      Lore:
+        - "&8 » &7显式奖励布局不需要翻页"
+      IconFunction: "previous"
 
-120分钟在线奖励:
-  time: 120
-  icon: GOLD_INGOT
-  icon-amount: 12
-  display-name: "&#54A0FF120分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f280"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f120分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b280 EMC"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 280"
+    "G":
+      Material: "PAPER"
+      Name: "&#00D2D3&l第 &f{page} &8/ &f{pages} &#00D2D3&l页"
+      Lore:
+        - "&8 » &7当前 GUI 配置了 &f{reward_count} &7个奖励"
+      IconFunction: "page"
 
-140分钟在线奖励:
-  time: 140
-  icon: EMERALD
-  icon-amount: 14
-  display-name: "&#A29BFE140分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f350"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f140分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b350 EMC"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 350"
+    "N":
+      Material: "ARROW"
+      Name: "&#10AC84&l➤ &f下一页"
+      Lore:
+        - "&8 » &7显式奖励布局不需要翻页"
+      IconFunction: "next"
 
-160分钟在线奖励:
-  time: 160
-  icon: EMERALD
-  icon-amount: 16
-  display-name: "&#A29BFE160分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f430"
-    - "  &8 ▪ &f经验瓶 &8x&f4"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f160分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b430 EMC &7+ &f经验瓶 x4"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 430"
-    - "give {player} experience_bottle 4"
+rewards:
+  20分钟在线奖励:
+    time: 20
+    icon: COAL
+    icon-amount: 2
+    display-name: "&#10AC8420分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f50"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f20分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b50 EMC"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 50"
 
-180分钟在线奖励:
-  time: 180
-  icon: DIAMOND
-  icon-amount: 18
-  display-name: "&#FDCB6E180分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f520"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f180分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b520 EMC"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 520"
+  40分钟在线奖励:
+    time: 40
+    icon: COAL
+    icon-amount: 4
+    display-name: "&#10AC8440分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f80"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f40分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b80 EMC"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 80"
 
-200分钟在线奖励:
-  time: 200
-  icon: NETHER_STAR
-  icon-amount: 20
-  display-name: "&#FF9F43200分钟 &8| &f在线奖励"
-  display-rewards:
-    - "  &8 ▪ &bEMC &8x&f650"
-    - "  &8 ▪ &6金苹果 &8x&f1"
-  lore:
-    - ""
-    - " &8▪ &7在线满 &f200分钟 &7即可领取"
-    - " &8▪ &7奖励内容 &8» &b650 EMC &7+ &6金苹果 x1"
-    - " &e点击领取奖励"
-    - ""
-  commands:
-    - "uemc give {player} 650"
-    - "give {player} golden_apple 1"
+  60分钟在线奖励:
+    time: 60
+    icon: IRON_INGOT
+    icon-amount: 6
+    display-name: "&#00D2D360分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f120"
+      - "  &8 ▪ &f面包 &8x&f3"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f60分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b120 EMC &7+ &f面包 x3"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 120"
+      - "give {player} bread 3"
+
+  80分钟在线奖励:
+    time: 80
+    icon: IRON_INGOT
+    icon-amount: 8
+    display-name: "&#00D2D380分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f160"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f80分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b160 EMC"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 160"
+
+  100分钟在线奖励:
+    time: 100
+    icon: GOLD_INGOT
+    icon-amount: 10
+    display-name: "&#54A0FF100分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f220"
+      - "  &8 ▪ &f熟牛排 &8x&f2"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f100分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b220 EMC &7+ &f熟牛排 x2"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 220"
+      - "give {player} cooked_beef 2"
+
+  120分钟在线奖励:
+    time: 120
+    icon: GOLD_INGOT
+    icon-amount: 12
+    display-name: "&#54A0FF120分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f280"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f120分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b280 EMC"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 280"
+
+  140分钟在线奖励:
+    time: 140
+    icon: EMERALD
+    icon-amount: 14
+    display-name: "&#A29BFE140分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f350"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f140分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b350 EMC"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 350"
+
+  160分钟在线奖励:
+    time: 160
+    icon: EMERALD
+    icon-amount: 16
+    display-name: "&#A29BFE160分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f430"
+      - "  &8 ▪ &f经验瓶 &8x&f4"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f160分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b430 EMC &7+ &f经验瓶 x4"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 430"
+      - "give {player} experience_bottle 4"
+
+  180分钟在线奖励:
+    time: 180
+    icon: DIAMOND
+    icon-amount: 18
+    display-name: "&#FDCB6E180分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f520"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f180分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b520 EMC"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 520"
+
+  200分钟在线奖励:
+    time: 200
+    icon: NETHER_STAR
+    icon-amount: 20
+    display-name: "&#FF9F43200分钟 &8| &f在线奖励"
+    display-rewards:
+      - "  &8 ▪ &bEMC &8x&f650"
+      - "  &8 ▪ &6金苹果 &8x&f1"
+    lore:
+      - ""
+      - " &8▪ &7在线满 &f200分钟 &7即可领取"
+      - " &8▪ &7奖励内容 &8» &b650 EMC &7+ &6金苹果 x1"
+      - " &e点击领取奖励"
+      - ""
+    commands:
+      - "uemc give {player} 650"
+      - "give {player} golden_apple 1"

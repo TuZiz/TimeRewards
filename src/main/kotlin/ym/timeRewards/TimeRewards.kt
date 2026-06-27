@@ -94,11 +94,6 @@ class TimeRewards : JavaPlugin() {
             "Rewards/month.yml",
             "Rewards/year.yml",
             "Rewards/total.yml",
-            "gui/day.yml",
-            "gui/week.yml",
-            "gui/month.yml",
-            "gui/year.yml",
-            "gui/total.yml",
         ).forEach { resourcePath ->
             saveResource(resourcePath, false)
         }

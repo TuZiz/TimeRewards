@@ -1,7 +1,13 @@
 # ==========================================
 # 在线奖励配置
-# 今日奖励使用 GUI 展示
-# 其他周期奖励使用命令查看:
+# 每个周期的 GUI 和奖励内容位于对应 Rewards 文件:
+# Rewards/day.yml
+# Rewards/week.yml
+# Rewards/month.yml
+# Rewards/year.yml
+# Rewards/total.yml
+# 可用命令:
+# /tr today
 # /tr week
 # /tr month
 # /tr year
@@ -25,7 +31,7 @@ database:
     table-prefix: timerewards_
     parameters: "useSSL=false&characterEncoding=utf8&serverTimezone=UTC"
 
-# 奖励内容已拆分到 Rewards 文件夹:
+# 每个周期一个配置文件，文件内包含 gui 和 rewards 两段:
 # - Rewards/day.yml
 # - Rewards/week.yml
 # - Rewards/month.yml

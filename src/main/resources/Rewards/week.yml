@@ -1,8 +1,51 @@
 enabled: false
 
-本周活跃奖励:
-  time: 500
-  display-rewards:
-    - "  &8 ▪ &e金币 &8x&f6"
-  commands:
-    - "money give {player} 6"
+gui:
+  Title: "&#54A0FF&l❖ &8| &f本周在线奖励"
+
+  GuiPlain:
+    - "    S    "
+    - " `本周活跃奖励` "
+    - "         "
+    - "         "
+    - "         "
+    - "    G    "
+
+  GuiKey:
+    "S":
+      Material: "PLAYER_HEAD"
+      Name: "&#FFD700&l✦ &f我的在线统计 &l✦"
+      Lore:
+        - ""
+        - " &8 ├─ &7今日 &8» &f&l{today_time}"
+        - " &8 ├─ &7本周 &8» &f&l{week_time}"
+        - " &8 ├─ &7本月 &8» &f&l{month_time}"
+        - " &8 ├─ &7本年 &8» &f&l{year_time}"
+        - " &8 └─ &7累计 &8» &f&l{total_time}"
+        - ""
+      IconFunction: "stats"
+
+    "R":
+      Material: "GOLD_BLOCK"
+      Name: "{reward_display}"
+      Lore:
+        - ""
+        - " &8▪ &7请在 Rewards 配置里自定义该奖励的 lore"
+        - " &e点击尝试领取"
+        - ""
+      IconFunction: "reward"
+
+    "G":
+      Material: "PAPER"
+      Name: "&#00D2D3&l奖励数量 &f{reward_count}"
+      Lore:
+        - "&8 » &7只有 GuiPlain 中配置的奖励会显示"
+      IconFunction: "page"
+
+rewards:
+  本周活跃奖励:
+    time: 500
+    display-rewards:
+      - "  &8 ▪ &e金币 &8x&f6"
+    commands:
+      - "money give {player} 6"
