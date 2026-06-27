@@ -132,6 +132,8 @@ GuiPlain:
 - `commands`
 - `items`
 
+`lore` 是奖励在 GUI 中显示的完整描述文本。你可以完全手写，不需要放 `{reward_lines}`、`{hint}`、`{progress_text}` 等变量；配置里写什么就显示什么。若某个奖励没有写 `lore`，才会使用 `gui/*.yml` 中 `IconFunction: reward` 的兜底模板。
+
 启用周期后，奖励必须至少配置一条 `commands` 或一项有效 `items`，否则会被跳过并记录错误。
 
 默认 `Rewards/day.yml` 使用 20 到 200 分钟的简洁在线奖励，主要发放 EMC：

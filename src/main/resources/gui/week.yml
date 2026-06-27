@@ -27,12 +27,8 @@ GuiKey:
     Name: "{reward_display}"
     Lore:
       - ""
-      - " &8 ├─ &7需求时间 &8» &f{required_minutes} &7分钟"
-      - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-      - " &8 ├─ &7当前状态 &8» {status}"
-      - " &8 ├─ &b包含奖励 &8»"
-      - "{reward_lines}"
-      - " &8 └─ &e{hint}"
+      - " &8▪ &7请在 Rewards 配置里自定义该奖励的 lore"
+      - " &e点击尝试领取"
       - ""
     IconFunction: "reward"
 

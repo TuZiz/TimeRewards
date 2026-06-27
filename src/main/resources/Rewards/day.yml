@@ -9,11 +9,9 @@ enabled: true
     - "  &8 ▪ &bEMC &8x&f50"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f20 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f20分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b50 EMC"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 50"
@@ -27,11 +25,9 @@ enabled: true
     - "  &8 ▪ &bEMC &8x&f80"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f40 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f40分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b80 EMC"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 80"
@@ -46,11 +42,9 @@ enabled: true
     - "  &8 ▪ &f面包 &8x&f3"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f60 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f60分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b120 EMC &7+ &f面包 x3"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 120"
@@ -65,11 +59,9 @@ enabled: true
     - "  &8 ▪ &bEMC &8x&f160"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f80 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f80分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b160 EMC"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 160"
@@ -84,11 +76,9 @@ enabled: true
     - "  &8 ▪ &f熟牛排 &8x&f2"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f100 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f100分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b220 EMC &7+ &f熟牛排 x2"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 220"
@@ -103,11 +93,9 @@ enabled: true
     - "  &8 ▪ &bEMC &8x&f280"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f120 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f120分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b280 EMC"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 280"
@@ -121,11 +109,9 @@ enabled: true
     - "  &8 ▪ &bEMC &8x&f350"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f140 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f140分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b350 EMC"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 350"
@@ -140,11 +126,9 @@ enabled: true
     - "  &8 ▪ &f经验瓶 &8x&f4"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f160 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f160分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b430 EMC &7+ &f经验瓶 x4"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 430"
@@ -159,11 +143,9 @@ enabled: true
     - "  &8 ▪ &bEMC &8x&f520"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f180 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f180分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b520 EMC"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 520"
@@ -178,11 +160,9 @@ enabled: true
     - "  &8 ▪ &6金苹果 &8x&f1"
   lore:
     - ""
-    - " &8 ├─ &7需求时间 &8» &f200 &7分钟"
-    - " &8 ├─ &7当前进度 &8» &f{progress_text}"
-    - " &8 ├─ &b包含奖励 &8»"
-    - "{reward_lines}"
-    - " &8 └─ &e{hint}"
+    - " &8▪ &7在线满 &f200分钟 &7即可领取"
+    - " &8▪ &7奖励内容 &8» &b650 EMC &7+ &6金苹果 x1"
+    - " &e点击领取奖励"
     - ""
   commands:
     - "uemc give {player} 650"
