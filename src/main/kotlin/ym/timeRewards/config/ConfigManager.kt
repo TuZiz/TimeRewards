@@ -22,11 +22,11 @@ class ConfigManager(
     )
 
     private val guiFiles = mapOf(
-        RewardScope.TODAY to listOf("day.yml", "today.yml"),
-        RewardScope.WEEK to listOf("week.yml"),
-        RewardScope.MONTH to listOf("month.yml"),
-        RewardScope.YEAR to listOf("year.yml"),
-        RewardScope.TOTAL to listOf("total.yml"),
+        RewardScope.TODAY to "day.yml",
+        RewardScope.WEEK to "week.yml",
+        RewardScope.MONTH to "month.yml",
+        RewardScope.YEAR to "year.yml",
+        RewardScope.TOTAL to "total.yml",
     )
 
     private lateinit var messages: YamlConfiguration
@@ -123,16 +123,17 @@ class ConfigManager(
     }
 
     private fun readGuiConfig(scope: RewardScope): GuiConfig {
-        val guiFile = guiFiles.getValue(scope)
-            .asSequence()
-            .map { File(plugin.dataFolder, "gui/$it") }
-            .firstOrNull { it.exists() }
-        val section: ConfigurationSection? = if (guiFile != null) {
-            YamlConfiguration.loadConfiguration(guiFile)
-        } else {
-            plugin.config.getConfigurationSection("gui")
+        val fileName = guiFiles.getValue(scope)
+        val resourcePath = "gui/$fileName"
+        val guiFile = File(plugin.dataFolder, resourcePath)
+        if (!guiFile.exists()) {
+            runCatching { plugin.saveResource(resourcePath, false) }
+                .onFailure { exception ->
+                    plugin.logger.severe("Missing GUI resource $resourcePath and failed to restore default: ${exception.message}")
+                }
         }
-        val sourceName = guiFile?.let { "gui/${it.name}" } ?: "config.yml:gui"
+        val section: ConfigurationSection? = YamlConfiguration.loadConfiguration(guiFile)
+        val sourceName = resourcePath
         val layout = section?.getStringList("GuiPlain").orEmpty().ifEmpty {
             listOf(
                 "#########",
