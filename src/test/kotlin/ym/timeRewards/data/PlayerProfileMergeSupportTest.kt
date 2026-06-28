@@ -70,6 +70,25 @@ class PlayerProfileMergeSupportTest {
         assertEquals("all-time", merged.scopeData.getValue(RewardScope.TOTAL).token)
     }
 
+    @Test
+    fun mergeKeepsIncomingAutoClaimPreference() {
+        val now = LocalDate.of(2026, 4, 17)
+        val uuid = UUID.fromString("44444444-4444-4444-4444-444444444444")
+        val existing = profile(uuid, "Keer", now).apply { autoClaimEnabled = false }
+        val incoming = profile(uuid, "Keer", now).apply { autoClaimEnabled = true }
+
+        val merged = PlayerProfileMergeSupport.mergePreferMax(incoming, existing, now)
+
+        assertTrue(merged.autoClaimEnabled)
+
+        val disabledIncoming = profile(uuid, "Keer", now).apply { autoClaimEnabled = false }
+        val enabledExisting = profile(uuid, "Keer", now).apply { autoClaimEnabled = true }
+
+        val disabledMerged = PlayerProfileMergeSupport.mergePreferMax(disabledIncoming, enabledExisting, now)
+
+        assertFalse(disabledMerged.autoClaimEnabled)
+    }
+
     private fun profile(uuid: UUID, playerName: String, now: LocalDate): PlayerRewardProfile {
         return PlayerProfileMergeSupport.emptyProfile(uuid, playerName, now)
     }

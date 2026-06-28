@@ -4,7 +4,7 @@ gui:
   Title: "&#5F27CD&l❖ &8| &f本月在线奖励"
 
   GuiPlain:
-    - "    S    "
+    - "   S A   "
     - " `本月勤奋奖励` "
     - "         "
     - "         "
@@ -24,6 +24,17 @@ gui:
         - " &8 └─ &7累计 &8» &f&l{total_time}"
         - ""
       IconFunction: "stats"
+
+    "A":
+      Material: "LIME_DYE"
+      Name: "&#10AC84&l自动领取 &8» &f{auto_claim_status}"
+      Lore:
+        - ""
+        - " &8▪ &7状态 &8» {auto_claim_status_color}{auto_claim_status}"
+        - " &8▪ &7开启后达到时间会自动领取可用奖励"
+        - " &e{auto_claim_toggle}"
+        - ""
+      IconFunction: "auto_claim"
 
     "R":
       Material: "GOLD_BLOCK"

@@ -68,6 +68,22 @@ class RewardGuiService(
                             null -> item(renderTemplate(template))
                             "reward" -> bindPagedRewardSlot(this, scope, template, slotIndex, rewardSlots, pageRewards)
                             "stats" -> item { player, _ -> buildStatsItem(player, template) }
+                            "auto_claim" -> {
+                                item { player, _ -> buildAutoClaimItem(player, template) }
+                                onClick { ctx: ClickContext ->
+                                    val enabled = !playerDataService.isAutoClaimEnabled(ctx.player.uniqueId)
+                                    if (playerDataService.setAutoClaimEnabled(ctx.player.uniqueId, ctx.player.name, enabled)) {
+                                        val messageKey = if (enabled) "auto-claim-enabled" else "auto-claim-disabled"
+                                        ctx.player.sendMessage(configManager.message(messageKey))
+                                        if (enabled) {
+                                            rewardService.autoClaimAvailable(ctx.player)
+                                        }
+                                    } else {
+                                        ctx.player.sendMessage(configManager.message("auto-claim-save-failed"))
+                                    }
+                                    ctx.refresh()
+                                }
+                            }
                             "page" -> item(
                                 renderTemplate(
                                     template,
@@ -143,6 +159,22 @@ class RewardGuiService(
                 "month_time" to formatDuration(trackingService.currentSeconds(player, RewardScope.MONTH)),
                 "year_time" to formatDuration(trackingService.currentSeconds(player, RewardScope.YEAR)),
                 "total_time" to formatDuration(trackingService.currentSeconds(player, RewardScope.TOTAL)),
+            ),
+            player,
+        )
+    }
+
+    private fun buildAutoClaimItem(player: Player, template: GuiKeyTemplate): ItemStack {
+        val enabled = playerDataService.isAutoClaimEnabled(player.uniqueId)
+        return renderTemplate(
+            template.copy(
+                material = if (enabled) Material.LIME_DYE.name else Material.GRAY_DYE.name,
+                glow = enabled,
+            ),
+            mapOf(
+                "auto_claim_status" to if (enabled) "已开启" else "已关闭",
+                "auto_claim_status_color" to if (enabled) "&#10AC84" else "&#A0A0A0",
+                "auto_claim_toggle" to if (enabled) "点击关闭自动领取" else "点击开启自动领取",
             ),
             player,
         )

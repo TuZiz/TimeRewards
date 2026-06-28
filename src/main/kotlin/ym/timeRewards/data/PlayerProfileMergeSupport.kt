@@ -25,6 +25,7 @@ internal object PlayerProfileMergeSupport {
             playerName = normalizedIncoming.lastKnownName.ifBlank { normalizedExisting.lastKnownName },
             now = now,
         )
+        merged.autoClaimEnabled = normalizedIncoming.autoClaimEnabled
 
         RewardScope.entries.forEach { scope ->
             val incomingProgress = normalizedIncoming.scopeData.getOrPut(scope) { defaultProgress(scope, now) }
@@ -47,6 +48,7 @@ internal object PlayerProfileMergeSupport {
         val profile = PlayerRewardProfile(
             uuid = uuid,
             lastKnownName = playerName,
+            autoClaimEnabled = false,
             scopeData = EnumMap(RewardScope::class.java),
         )
         RewardScope.entries.forEach { scope ->
@@ -73,6 +75,7 @@ internal object PlayerProfileMergeSupport {
         val copy = PlayerRewardProfile(
             uuid = profile.uuid,
             lastKnownName = profile.lastKnownName,
+            autoClaimEnabled = profile.autoClaimEnabled,
             scopeData = EnumMap(RewardScope::class.java),
         )
         profile.scopeData.forEach { (scope, progress) ->

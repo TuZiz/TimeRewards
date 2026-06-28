@@ -1,6 +1,7 @@
 package ym.timeRewards
 
 import org.bukkit.Bukkit
+import org.bukkit.scheduler.BukkitTask
 import org.bukkit.plugin.java.JavaPlugin
 import ym.easygui.EasyGuiBootstrap
 import ym.easygui.core.GuiManager
@@ -28,6 +29,7 @@ class TimeRewards : JavaPlugin() {
         private set
 
     private var placeholderExpansion: TimeRewardsPlaceholderExpansion? = null
+    private var autoClaimTask: BukkitTask? = null
 
     override fun onEnable() {
         saveDefaultConfig()
@@ -58,6 +60,7 @@ class TimeRewards : JavaPlugin() {
             placeholderExpansion = TimeRewardsPlaceholderExpansion(this)
             placeholderExpansion?.register()
         }
+        startAutoClaimTask()
 
         Bukkit.getOnlinePlayers().forEach { player ->
             playerDataService.load(player.uniqueId, player.name)
@@ -66,6 +69,8 @@ class TimeRewards : JavaPlugin() {
     }
 
     override fun onDisable() {
+        autoClaimTask?.cancel()
+        autoClaimTask = null
         placeholderExpansion?.unregister()
         trackingService.flushOnline()
         playerDataService.saveAll()
@@ -97,5 +102,16 @@ class TimeRewards : JavaPlugin() {
         ).forEach { resourcePath ->
             saveResource(resourcePath, false)
         }
+    }
+
+    private fun startAutoClaimTask() {
+        autoClaimTask?.cancel()
+        autoClaimTask = server.scheduler.runTaskTimer(this, Runnable {
+            Bukkit.getOnlinePlayers().forEach { player ->
+                if (playerDataService.isAutoClaimEnabled(player.uniqueId)) {
+                    rewardService.autoClaimAvailable(player)
+                }
+            }
+        }, 20L * 60L, 20L * 60L)
     }
 }

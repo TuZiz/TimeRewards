@@ -25,22 +25,36 @@ class RewardService(
         val refreshGui: Boolean = false,
     )
 
+    data class AutoClaimSummary(
+        val claimedCount: Int,
+        val failedCount: Int,
+    )
+
     fun claim(player: Player, scope: RewardScope, reward: RewardDefinition): ClaimResult {
         playerDataService.getOrLoad(player.uniqueId, player.name)
         val seconds = trackingService.currentSeconds(player, scope)
         val progress = playerDataService.get(player.uniqueId)?.scopeData?.get(scope)
-            ?: return ClaimResult("reward-not-ready")
+            ?: return ClaimResult(
+                "reward-not-ready-remaining",
+                mapOf(
+                    "current" to (seconds / 60L).toString(),
+                    "required" to reward.requiredMinutes.toString(),
+                    "remaining" to remainingMinutes(seconds, reward.requiredMinutes).toString(),
+                ),
+            )
 
         if (reward.id in progress.claimedRewardIds) {
             return ClaimResult("reward-already-claimed")
         }
 
         if (seconds < reward.requiredMinutes * 60L) {
+            val remainingMinutes = remainingMinutes(seconds, reward.requiredMinutes)
             return ClaimResult(
-                "reward-not-ready",
+                "reward-not-ready-remaining",
                 mapOf(
                     "current" to (seconds / 60L).toString(),
                     "required" to reward.requiredMinutes.toString(),
+                    "remaining" to remainingMinutes.toString(),
                 ),
                 refreshGui = true,
             )
@@ -86,8 +100,38 @@ class RewardService(
         )
     }
 
+    fun autoClaimAvailable(player: Player): AutoClaimSummary {
+        if (!playerDataService.isAutoClaimEnabled(player.uniqueId)) {
+            return AutoClaimSummary(0, 0)
+        }
+
+        var claimed = 0
+        var failed = 0
+        RewardScope.entries.forEach { scope ->
+            configManager.rewards(scope).forEach { reward ->
+                val result = claim(player, scope, reward)
+                when (result.messageKey) {
+                    "reward-claimed" -> {
+                        claimed += 1
+                        player.sendMessage(configManager.message(result.messageKey, result.placeholders))
+                    }
+                    "reward-partial-claimed", "reward-save-failed" -> {
+                        failed += 1
+                        player.sendMessage(configManager.message(result.messageKey, result.placeholders))
+                    }
+                }
+            }
+        }
+        return AutoClaimSummary(claimed, failed)
+    }
+
     fun hasClaimed(playerId: java.util.UUID, scope: RewardScope, rewardId: String): Boolean {
         return playerDataService.get(playerId)?.scopeData?.get(scope)?.claimedRewardIds?.contains(rewardId) == true
+    }
+
+    private fun remainingMinutes(currentSeconds: Long, requiredMinutes: Long): Long {
+        val remainingSeconds = (requiredMinutes * 60L - currentSeconds).coerceAtLeast(0L)
+        return (remainingSeconds + 59L) / 60L
     }
 
     private fun replacePlaceholders(player: Player, reward: RewardDefinition, input: String): String {

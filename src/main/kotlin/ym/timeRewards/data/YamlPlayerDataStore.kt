@@ -42,7 +42,11 @@ class YamlPlayerDataStore(
     }
 
     private fun readProfile(uuid: UUID, playerName: String, section: ConfigurationSection?): PlayerRewardProfile {
-        val profile = PlayerRewardProfile(uuid = uuid, lastKnownName = section?.getString("name") ?: playerName)
+        val profile = PlayerRewardProfile(
+            uuid = uuid,
+            lastKnownName = section?.getString("name") ?: playerName,
+            autoClaimEnabled = section?.getBoolean("auto-claim", false) ?: false,
+        )
 
         RewardScope.entries.forEach { scope ->
             val scopeSection = section?.getConfigurationSection(scope.key)
@@ -58,6 +62,7 @@ class YamlPlayerDataStore(
 
     private fun writeProfile(base: ConfigurationSection, profile: PlayerRewardProfile) {
         base.set("name", profile.lastKnownName)
+        base.set("auto-claim", profile.autoClaimEnabled)
         RewardScope.entries.forEach { scope ->
             val progress = profile.scopeData[scope] ?: ScopeProgress()
             val scopeSection = base.createSection(scope.key)

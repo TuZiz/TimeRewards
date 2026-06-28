@@ -7,6 +7,7 @@ import java.util.UUID
 data class PlayerRewardProfile(
     val uuid: UUID,
     var lastKnownName: String,
+    var autoClaimEnabled: Boolean = false,
     val scopeData: MutableMap<RewardScope, ScopeProgress> = EnumMap(RewardScope::class.java),
 )
 

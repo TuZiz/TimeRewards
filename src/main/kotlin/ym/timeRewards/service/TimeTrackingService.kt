@@ -87,6 +87,7 @@ class TimeTrackingService(
         val copy = PlayerRewardProfile(
             uuid = profile.uuid,
             lastKnownName = profile.lastKnownName,
+            autoClaimEnabled = profile.autoClaimEnabled,
             scopeData = EnumMap(RewardScope::class.java),
         )
         profile.scopeData.forEach { (scope, progress) ->

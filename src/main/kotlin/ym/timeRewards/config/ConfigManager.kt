@@ -24,6 +24,12 @@ class ConfigManager(
     private lateinit var messages: YamlConfiguration
     private var guiConfigsByScope: Map<RewardScope, GuiConfig> = emptyMap()
     private var rewardScopeEnabledByScope: Map<RewardScope, Boolean> = emptyMap()
+    private val fallbackMessages = mapOf(
+        "reward-not-ready-remaining" to "&#FF9F43✦ &8| &7在线时长不足，当前 &f{current} &8/ &f{required} &7分钟，还差 &e{remaining} &7分钟。",
+        "auto-claim-enabled" to "&#10AC84✔ &8| &7自动领取已开启。",
+        "auto-claim-disabled" to "&#A0A0A0✦ &8| &7自动领取已关闭。",
+        "auto-claim-save-failed" to "&#FF5252✖ &8| &c自动领取开关保存失败，请稍后重试。",
+    )
 
     val guiConfig: GuiConfig
         get() = guiConfig(defaultScope)
@@ -62,7 +68,9 @@ class ConfigManager(
     }
 
     fun message(path: String, placeholders: Map<String, String> = emptyMap()): String {
-        val raw = messages.getString("messages.$path", "&cMissing message: $path").orEmpty()
+        val raw = messages.getString("messages.$path")
+            ?: fallbackMessages[path]
+            ?: "&cMissing message: $path"
         return applyPlaceholders(raw, placeholders).colorize()
     }
 

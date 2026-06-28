@@ -27,6 +27,19 @@ class PlayerDataService(
 
     fun getOrLoad(uuid: UUID, playerName: String): PlayerRewardProfile = load(uuid, playerName)
 
+    fun isAutoClaimEnabled(uuid: UUID): Boolean = profiles[uuid]?.autoClaimEnabled == true
+
+    fun setAutoClaimEnabled(uuid: UUID, playerName: String, enabled: Boolean): Boolean {
+        val profile = getOrLoad(uuid, playerName)
+        val previous = profile.autoClaimEnabled
+        profile.autoClaimEnabled = enabled
+        if (saveProfile(profile)) {
+            return true
+        }
+        profile.autoClaimEnabled = previous
+        return false
+    }
+
     fun save(uuid: UUID): Boolean {
         val profile = profiles[uuid] ?: return true
         return saveProfile(profile)
@@ -117,7 +130,7 @@ class PlayerDataService(
 
         yamlProfiles.forEach { profile ->
             try {
-                mysqlStore.save(profile)
+                mysqlStore.mergeMigratedProfile(profile)
                 merged += 1
             } catch (exception: Exception) {
                 failed += 1

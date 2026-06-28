@@ -63,6 +63,26 @@ class MysqlPlayerDataStore(
         }
     }
 
+    @Synchronized
+    fun mergeMigratedProfile(profile: PlayerRewardProfile) {
+        connection().use { connection ->
+            connection.autoCommit = false
+            try {
+                val existingPlayer = playerExists(connection, profile.uuid, lockForUpdate = true)
+                val existing = loadProfile(connection, profile.uuid, profile.lastKnownName, lockForUpdate = true)
+                val merged = PlayerProfileMergeSupport.mergePreferMax(profile, existing)
+                merged.autoClaimEnabled = if (existingPlayer) existing.autoClaimEnabled else profile.autoClaimEnabled
+                saveProfile(connection, merged)
+                connection.commit()
+            } catch (exception: Exception) {
+                connection.rollback()
+                throw exception
+            } finally {
+                connection.autoCommit = true
+            }
+        }
+    }
+
     private fun createTables() {
         connection().use { connection ->
             connection.createStatement().use { statement ->
@@ -71,11 +91,13 @@ class MysqlPlayerDataStore(
                     CREATE TABLE IF NOT EXISTS $playersTable (
                         uuid CHAR(36) NOT NULL,
                         name VARCHAR(32) NOT NULL,
+                        auto_claim BOOLEAN NOT NULL DEFAULT FALSE,
                         updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
                         PRIMARY KEY (uuid)
                     ) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
                     """.trimIndent(),
                 )
+                addColumnIfMissing(connection, playersTable, "auto_claim", "BOOLEAN NOT NULL DEFAULT FALSE")
                 statement.executeUpdate(
                     """
                     CREATE TABLE IF NOT EXISTS $progressTable (
@@ -113,13 +135,14 @@ class MysqlPlayerDataStore(
     private fun saveProfile(connection: Connection, profile: PlayerRewardProfile) {
         connection.prepareStatement(
             """
-            INSERT INTO $playersTable (uuid, name)
-            VALUES (?, ?)
-            ON DUPLICATE KEY UPDATE name = VALUES(name), updated_at = CURRENT_TIMESTAMP
+            INSERT INTO $playersTable (uuid, name, auto_claim)
+            VALUES (?, ?, ?)
+            ON DUPLICATE KEY UPDATE name = VALUES(name), auto_claim = VALUES(auto_claim), updated_at = CURRENT_TIMESTAMP
             """.trimIndent(),
         ).use { statement ->
             statement.setString(1, profile.uuid.toString())
             statement.setString(2, profile.lastKnownName)
+            statement.setBoolean(3, profile.autoClaimEnabled)
             statement.executeUpdate()
         }
 
@@ -173,11 +196,14 @@ class MysqlPlayerDataStore(
         val profile = PlayerProfileMergeSupport.emptyProfile(uuid, playerName)
         val lockClause = if (lockForUpdate) " FOR UPDATE" else ""
 
-        connection.prepareStatement("SELECT name FROM $playersTable WHERE uuid = ?$lockClause").use { statement ->
+        connection.prepareStatement("SELECT name, auto_claim FROM $playersTable WHERE uuid = ?$lockClause").use { statement ->
             statement.setString(1, uuid.toString())
             statement.executeQuery().use { result ->
-                if (result.next() && profile.lastKnownName.isBlank()) {
-                    profile.lastKnownName = result.getString("name")
+                if (result.next()) {
+                    if (profile.lastKnownName.isBlank()) {
+                        profile.lastKnownName = result.getString("name")
+                    }
+                    profile.autoClaimEnabled = result.getBoolean("auto_claim")
                 }
             }
         }
@@ -209,7 +235,26 @@ class MysqlPlayerDataStore(
         return profile
     }
 
+    private fun playerExists(connection: Connection, uuid: UUID, lockForUpdate: Boolean): Boolean {
+        val lockClause = if (lockForUpdate) " FOR UPDATE" else ""
+        connection.prepareStatement("SELECT uuid FROM $playersTable WHERE uuid = ?$lockClause").use { statement ->
+            statement.setString(1, uuid.toString())
+            statement.executeQuery().use { result ->
+                return result.next()
+            }
+        }
+    }
+
     private fun connection(): Connection = DriverManager.getConnection(config.jdbcUrl, config.username, config.password)
 
     private fun table(name: String): String = "$tablePrefix$name"
+
+    private fun addColumnIfMissing(connection: Connection, tableName: String, columnName: String, definition: String) {
+        val exists = connection.metaData.getColumns(connection.catalog, null, tableName, columnName).use { columns -> columns.next() }
+        if (!exists) {
+            connection.createStatement().use { statement ->
+                statement.executeUpdate("ALTER TABLE $tableName ADD COLUMN $columnName $definition")
+            }
+        }
+    }
 }
